@@ -1,6 +1,6 @@
 #coding=utf-8
 '''
-Created on 2016年7月20日
+Created on 2016-7-20
 
 @author: admin
 '''
@@ -40,7 +40,7 @@ class mysqlUp:
     def houseup(self):
         try:
             self.cur.execute('truncate table BD_WAREHOUSE_INFO;') 
-            print("1")           
+            #print("ok")           
             self.cur.execute(self.pfdict["sql"])
             self.cur.execute('select warehouse_id from bd_warehouse_info;')
             data=self.cur.fetchone()[0]
