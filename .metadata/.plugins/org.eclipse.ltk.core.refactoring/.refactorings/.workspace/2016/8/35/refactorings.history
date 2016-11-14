@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;login/mysql_gui/cod_utf8.py&apos;" deleteContents="false" description="Delete resource &apos;login/mysql_gui/cod_utf8.py&apos;" element1="/login/mysql_gui/cod_utf8.py" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1471829065292"/>
+</session>

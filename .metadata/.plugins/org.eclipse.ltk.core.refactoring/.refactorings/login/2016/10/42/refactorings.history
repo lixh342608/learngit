@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;login/update_test/__init__.py&apos; to &apos;updatelist.py&apos;" description="Rename resource &apos;__init__.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="update_test/__init__.py" name="updatelist.py" stamp="1476350752377" updateReferences="true"/>
+</session>

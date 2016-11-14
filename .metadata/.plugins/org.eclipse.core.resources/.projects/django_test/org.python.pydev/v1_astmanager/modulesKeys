@@ -1,0 +1,14 @@
+MODULES_MANAGER_V2
+django_test.__init__|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\__init__.py
+django_test.settings|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\settings.py
+django_test.urls|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\urls.py
+django_test.wsgi|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\wsgi.py
+manage|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\manage.py
+update_test.__init__|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\__init__.py
+update_test.fabfile|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\fabfile.py
+update_test.log_Gui|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\log_Gui.py
+update_test.tk_msginput|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\tk_msginput.py
+update_test.updata_gui|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updata_gui.py
+update_test.updateLog|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updateLog.py
+update_test.updatelist|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updatelist.py
+update_test.xltest|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\xltest.py

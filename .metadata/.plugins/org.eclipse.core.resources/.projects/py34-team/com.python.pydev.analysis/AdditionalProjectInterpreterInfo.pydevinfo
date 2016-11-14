@@ -1,0 +1,37 @@
+-- VERSION_4
+-- START DISKCACHE_2
+E:\eclipse-jee-mars-1-win32-x86_64\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\py34-team\com.python.pydev.analysis\v2_indexcache
+socket_app|1473896651577168000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\socket_app.py
+test|1473899101239281000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\test.py
+mysqllink.__init__|1471334600841865000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\__init__.py
+mysqllink.pymysql1|1470983253407339000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\pymysql1.py
+-- END DISKCACHE
+-- START DICTIONARY
+5
+5=mysqlUp.__init__
+2=socket_app
+3=test
+4=mysqlUp
+1=mysqllink.pymysql1
+-- END DICTIONARY
+-- START TREE 1
+5
+mys|1|mysqlUp!9@
+s|1|s!19@
+soc|1|sock!27@
+t|1|t!27@
+tcp|1|tcplink!26@
+-- END TREE
+-- START TREE 2
+10
+__i|1|__init__!4&10@
+con|1|conn!5&11@
+cur|1|cur!5&11@
+exe|1|exeupdata!4&10@
+hou|1|houseup!4&10@
+pfd|1|pfdict!5&11@
+qui|1|quitnow!4&10@
+sql|1|sqlinfo!4&11@
+ups|1|upsqlmain!4&10@
+val|1|values!5&11@
+-- END TREE

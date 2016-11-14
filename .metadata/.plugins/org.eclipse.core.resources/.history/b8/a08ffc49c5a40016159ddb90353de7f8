@@ -1,0 +1,27 @@
+#coding=utf-8
+'''
+Created on 2016年10月14日
+
+@author: pc
+'''
+import xlrd,xlwt,xlutils
+from cod_utf8 import cod_utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+def xl_red(row_num):
+    exl=xlrd.open_workbook(u"C:/test/更新日志.xls")
+    ex_sheet=exl.sheet_by_name(u"2016年11月份")
+    
+    cell=ex_sheet.row_values(row_num+2)
+    item=["更新代号：","更新功能：","文件列表：","SVN版本号","开发人员："]
+    num=0
+    for stri in item:
+        print stri,str(cell[num])
+        num+=1
+       
+    
+    
+if __name__=="__main__":
+    xl_red(2)
+    

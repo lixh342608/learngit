@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;py27-parmikio&apos; to &apos;py34-team&apos;" description="Rename resource &apos;py27-parmikio&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/py27-parmikio" name="py34-team" stamp="1471334461804" updateReferences="true"/>
+</session>

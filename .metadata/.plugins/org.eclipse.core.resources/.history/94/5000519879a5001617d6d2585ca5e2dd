@@ -1,0 +1,55 @@
+#coding=utf-8
+'''
+Created on 2016年10月14日
+
+@author: pc
+'''
+import xlrd
+from xlutils.copy import copy
+from cod_utf8 import cod_utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+def xl_red(row_num,xlfile=u"C:/test/更新日志.xls",ind=0):
+    exl=xlrd.open_workbook(xlfile)
+    ex_sheet=exl.sheet_by_index(ind)
+    
+    cell=ex_sheet.row_values(row_num+2)
+    
+    return cell 
+def xl_write(row,col=5,changed=u"已更新",xlfile=u"C:/test/更新日志.xls",ind=0):
+    def _getOutCell(outSheet, colIndex=5, rowIndex=2):
+        """ HACK: Extract the internal xlwt cell representation. """
+        row = outSheet._Worksheet__rows.get(rowIndex)
+        if not row: return None
+        cell = row._Row__cells.get(colIndex)
+        return cell
+    row=row+2
+    
+    exl=xlrd.open_workbook(u"C:/test/更新日志.xls",formatting_info=True)
+    r_sheet=exl.sheet_by_index(ind)
+    w_exl=copy(exl)
+    w_sheet=w_exl.get_sheet(ind)
+    previousCell = _getOutCell(w_sheet)
+    w_sheet.write(row,col,changed)
+    newcell=_getOutCell(w_sheet, col, row)
+    newcell.xf_idx = previousCell.xf_idx
+    print 1
+    try:
+        w_exl.save(xlfile)
+        return 1
+    except Exception as e:
+        return 0
+
+    def _getOutCell(outSheet, colIndex=5, rowIndex=2):
+        """ HACK: Extract the internal xlwt cell representation. """
+        row = outSheet._Worksheet__rows.get(rowIndex)
+        if not row: return None
+        cell = row._Row__cells.get(colIndex)
+        return cell
+    
+if __name__=="__main__":
+    textlist=xl_red(2)
+    print textlist
+    xl_write(5,5)

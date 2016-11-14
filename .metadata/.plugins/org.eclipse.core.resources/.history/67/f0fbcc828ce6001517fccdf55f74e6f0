@@ -1,0 +1,10 @@
+#!/usr/bin/python
+#encoding:utf-8
+for i in range(10000):
+    if i<10:
+        if i**3==i:
+            print i
+    else:   
+    l=str(i).split('')
+    print l
+    break
