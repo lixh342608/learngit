@@ -1,0 +1,4 @@
+item,vaul
+connext,root@192.168.154.129:22
+passwd,123456
+log_path,c:/test/
