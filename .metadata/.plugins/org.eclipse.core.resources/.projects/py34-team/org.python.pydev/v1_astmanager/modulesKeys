@@ -1,5 +1,6 @@
 MODULES_MANAGER_V2
-mysqllink.__init__|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\__init__.py
-mysqllink.pymysql1|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\pymysql1.py
-socket_app|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\socket_app.py
-test|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\test.py
+__init__|F:\project\learngit\py34-team\__init__.py
+mysqllink.__init__|F:\project\learngit\py34-team\mysqllink\__init__.py
+mysqllink.pymysql1|F:\project\learngit\py34-team\mysqllink\pymysql1.py
+socket_app|F:\project\learngit\py34-team\socket_app.py
+test|F:\project\learngit\py34-team\test.py

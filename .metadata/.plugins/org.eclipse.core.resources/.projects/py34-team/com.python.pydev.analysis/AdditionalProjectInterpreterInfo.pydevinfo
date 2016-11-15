@@ -1,10 +1,11 @@
 -- VERSION_4
 -- START DISKCACHE_2
-E:\eclipse-jee-mars-1-win32-x86_64\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\py34-team\com.python.pydev.analysis\v2_indexcache
-socket_app|1473896651577168000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\socket_app.py
-test|1473899101239281000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\test.py
-mysqllink.__init__|1471334600841865000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\__init__.py
-mysqllink.pymysql1|1470983253407339000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\py34-team\mysqllink\pymysql1.py
+F:\project\learngit\.metadata\.plugins\org.eclipse.core.resources\.projects\py34-team\com.python.pydev.analysis\v2_indexcache
+socket_app|1473896651577168000|F:\project\learngit\py34-team\socket_app.py
+test|1473899101239281000|F:\project\learngit\py34-team\test.py
+mysqllink.__init__|1471334600841865000|F:\project\learngit\py34-team\mysqllink\__init__.py
+__init__|1479180408969908000|F:\project\learngit\py34-team\__init__.py
+mysqllink.pymysql1|1470983253407339000|F:\project\learngit\py34-team\mysqllink\pymysql1.py
 -- END DISKCACHE
 -- START DICTIONARY
 5

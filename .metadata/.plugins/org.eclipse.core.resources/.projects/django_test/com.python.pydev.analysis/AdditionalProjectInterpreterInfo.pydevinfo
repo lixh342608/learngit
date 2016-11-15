@@ -1,19 +1,20 @@
 -- VERSION_4
 -- START DISKCACHE_2
-E:\eclipse-jee-mars-1-win32-x86_64\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\django_test\com.python.pydev.analysis\v2_indexcache
-update_test.xltest|1478762777270617000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\xltest.py
-update_test.updateLog|1479087917200682000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updateLog.py
-django_test.settings|1460090763483947000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\settings.py
-manage|1460089396664769000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\manage.py
-update_test.tk_msginput|1478922379147341000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\tk_msginput.py
-django_test.wsgi|1460089396701771000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\wsgi.py
-django_test.__init__|1468202307903427000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\__init__.py
-update_test.__init__|1476350769410000000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\__init__.py
-update_test.log_Gui|1479092944826245000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\log_Gui.py
-django_test.urls|1460091031336267000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\django_test\urls.py
-update_test.updatelist|1478777438028165000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updatelist.py
-update_test.fabfile|1476350689892000000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\fabfile.py
-update_test.updata_gui|1478858580842348000|E:\eclipse-jee-mars-1-win32-x86_64\workspace\django_test\update_test\updata_gui.py
+F:\project\learngit\.metadata\.plugins\org.eclipse.core.resources\.projects\django_test\com.python.pydev.analysis\v2_indexcache
+update_test.xltest|1478762777270617000|F:\project\learngit\django_test\update_test\xltest.py
+update_test.updateLog|1479087917200682000|F:\project\learngit\django_test\update_test\updateLog.py
+django_test.settings|1460090763483947000|F:\project\learngit\django_test\django_test\settings.py
+manage|1460089396664769000|F:\project\learngit\django_test\manage.py
+update_test.tk_msginput|1478922379147341000|F:\project\learngit\django_test\update_test\tk_msginput.py
+django_test.wsgi|1460089396701771000|F:\project\learngit\django_test\django_test\wsgi.py
+django_test.__init__|1468202307903427000|F:\project\learngit\django_test\django_test\__init__.py
+update_test.__init__|1476350769410000000|F:\project\learngit\django_test\update_test\__init__.py
+update_test.log_Gui|1479092944826245000|F:\project\learngit\django_test\update_test\log_Gui.py
+django_test.urls|1460091031336267000|F:\project\learngit\django_test\django_test\urls.py
+update_test.updatelist|1478777438028165000|F:\project\learngit\django_test\update_test\updatelist.py
+__init__|1479180408627889000|F:\project\learngit\django_test\__init__.py
+update_test.fabfile|1476350689892000000|F:\project\learngit\django_test\update_test\fabfile.py
+update_test.updata_gui|1478858580842348000|F:\project\learngit\django_test\update_test\updata_gui.py
 -- END DISKCACHE
 -- START DICTIONARY
 25
