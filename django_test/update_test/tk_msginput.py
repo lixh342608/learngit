@@ -120,26 +120,30 @@ class tk_Msginput:
         Label(self.root,text="校准值").grid(row=14,column=0)
         #定义按钮动作（继续动作）
         def click_on():
-            
-            self.col["motecom"]=motecom_var.get()
-            self.col["pwd"]=pwd_var.get()
-            self.col["localpath"]=localpath_var.get()
-            self.col["motepath"]=motepath_var.get()
-            #self.col["update_num"]=update_var.get()
-            self.col["moteuser"]=moteuser_var.get()
-            self.col["cal"]=cal_var.get()
-            for item in self.col.values():
-                if item:
-                    pass
+            if self.textlist == [] or self.row_list == []:
+                tkMessageBox.showinfo("提示：","请先核对更新信息！")
+            else:           
+                self.col["motecom"]=motecom_var.get()
+                self.col["pwd"]=pwd_var.get()
+                self.col["localpath"]=localpath_var.get()
+                self.col["motepath"]=motepath_var.get()
+                #self.col["update_num"]=update_var.get()
+                self.col["moteuser"]=moteuser_var.get()
+                self.col["cal"]=cal_var.get()
+                for item in self.col.values():
+                    if item:
+                        pass
+                    else:
+                        tkMessageBox.showinfo("提示：","以上所有项不可为空！")
+                        break
                 else:
-                    tkMessageBox.showinfo("提示：","以上所有项不可为空！")
-                    break
-            else:
-                writcol(self.col)
-                self.pack=1
-                self.root.destroy()
+                    writcol(self.col)
+                    self.pack=1
+                    self.root.destroy()
         #定义按钮动作（获取版本号信息）
         def select_on():
+            del self.textlist[:]
+            del self.row_list[:]
             self.row_list=update_var.get().split(",")
             #print row_list
             cal=cal_var.get()

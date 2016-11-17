@@ -126,7 +126,7 @@ class updata_list:
             remotepath=self.col["motepath"]+file
             filepath=os.path.split(remotepath)[0]
             self.log.insert(INSERT,localpath+"==>>"+remotepath+"\n")
-            self.log.insert(INSERT,"正在创建目录%s"+filepath+"\n")
+            self.log.insert(INSERT,"正在创建目录"+filepath+"\n")
             run("install -d %s" % filepath)
             #给上传文件授权
             run("chmod 755 %s" % filepath)
