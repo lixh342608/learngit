@@ -27,7 +27,7 @@ class log_gui:
             if self.exl_path != "":
                 try:
                     cellvalue,rb=read_cell(self.exl_path)
-                    up_var.set(int(cellvalue)+1)
+                    up_ver_var.set(int(cellvalue)+1)
                     head_var.set("")
                     self.e2.delete(1.0,END)
                     SVN_V_var.set("")
@@ -58,6 +58,13 @@ class log_gui:
                 b3["bg"]="white"
                 back_value(up_ver_var)
         def click_on():
+            if b1_text_var.get()==u"写      入":
+                cellvalue,rb=read_cell(self.exl_path)
+                if int(cellvalue)==(int(up_ver_var.get())-1):
+                    pass
+                else:
+                    tkMessageBox.showinfo("提示：","您的更新码已被占用，自动将您的更新码改为%d" % (int(cellvalue)+1))
+                    up_ver_var.set(int(cellvalue)+1)
             filelist=[]
             filelist.append(up_ver_var.get())
             filelist.append(head_var.get())
