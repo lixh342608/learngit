@@ -39,8 +39,8 @@ def read_row(rowindex,cal=2,xlfile=u"C:/test/更新日志.xls"):
     row_cell=rs.row_values(int(rowindex)+int(cal))
     return row_cell
     
-def write_log(textlist,cal=2):
-    cell_value,rb=read_cell()
+def write_log(textlist,cal=2,xlfile=u"C:/test/更新日志.xls"):
+    cell_value,rb=read_cell(xlfile)
     wb = copy(rb)
     #通过get_sheet()获取的sheet有write()方法
     ws = wb.get_sheet(0)
@@ -53,11 +53,11 @@ def write_log(textlist,cal=2):
             _write_value(ws,col, rows,value)
         
         col+=1
-    while col<8:
-        _write_value(ws,col, rows,"")
-        col+=1
+    #while col<8:
+        #_write_value(ws,col, rows,"test")
+        #col+=1
            
-    wb.save(u"C:/test/更新日志.xls")
+    wb.save(xlfile)
 #读取配置文件
 def loadcol(dump_file="collocation.pic"):
     try:

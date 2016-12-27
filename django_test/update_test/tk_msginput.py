@@ -10,6 +10,8 @@ import tkMessageBox
 from xltest import xl_red
 import pickle
 from updata_gui import *
+from fabric.api import *
+from test.test_tarfile import tarname
 #读取配置文件
 def loadcol():
     try:
@@ -41,7 +43,7 @@ class tk_Msginput:
     def colback(self):
         if self.col==0:
             tkMessageBox.showinfo("提示：","没有找到可用配置文件，请手动设置相关参数！")
-            self.col=dict.fromkeys(("motecom","pwd","localpath","motepath","moteuser","cal"),"")
+            self.col=dict.fromkeys(("motecom","pwd","localpath","motepath","moteuser","cal","update_num","backdir"),"")
             
     #初始化控件
     def tk_input(self):
@@ -108,6 +110,16 @@ class tk_Msginput:
                 cal_var.set(2)    
         except:
             cal_var.set(2)
+        back_dir_var=StringVar()
+        e8=Entry(self.root,textvariable=back_dir_var).grid(row=15,column=1)
+        try: 
+            if self.col["backdir"]:
+                back_dir_var.set(self.col["backdir"])
+            else:
+                back_dir_var.set("")    
+        except:
+            back_dir_var.set("") 
+        #back_dir_var.set(self.col["backdir"])
         Label(self.root,text="主机信息").grid(row=1,column=0)
         Label(self.root,text="连接密码").grid(row=3,column=0)
         Label(self.root,text="源文件地址").grid(row=5,column=0)
@@ -115,9 +127,9 @@ class tk_Msginput:
         Label(self.root,text="更新序号").grid(row=11,column=0)
         Label(self.root,text="用户身份").grid(row=9,column=0)
         Label(self.root,text="请确认更新信息后点击右上角红色按钮进行更新操作").grid(row=12,column=0,columnspan=3)
-        #text=Text(self.root,width=45,height=15,font = ("Arial, 10"))
-        #text.grid(row=13,column=0,columnspan=3)
+        
         Label(self.root,text="校准值").grid(row=14,column=0)
+        Label(self.root,text="备份文件目录").grid(row=15,column=0)
         #定义按钮动作（继续动作）
         def click_on():
             if self.textlist == [] or self.row_list == []:
@@ -127,9 +139,10 @@ class tk_Msginput:
                 self.col["pwd"]=pwd_var.get()
                 self.col["localpath"]=localpath_var.get()
                 self.col["motepath"]=motepath_var.get()
-                #self.col["update_num"]=update_var.get()
+                self.col["update_num"]=update_var.get()
                 self.col["moteuser"]=moteuser_var.get()
                 self.col["cal"]=cal_var.get()
+                self.col["backdir"]=back_dir_var.get()
                 for item in self.col.values():
                     if item:
                         pass
@@ -145,7 +158,7 @@ class tk_Msginput:
             del self.textlist[:]
             del self.row_list[:]
             self.row_list=update_var.get().split(",")
-            #print row_list
+            #print self.row_list
             cal=cal_var.get()
             text=""
             try:
@@ -170,14 +183,63 @@ class tk_Msginput:
                             
                         else:
                             text+=("更新码核对不正确，请重新调整更新码校准值！\n")
-                #print textlist
-                tkMessageBox.showinfo("请核对以下信息：",text)        
+                if text:
+                    tkMessageBox.showinfo("请核对以下信息：",text)
+                else:
+                    tkMessageBox.showinfo("提示：","请正确输入更新码")        
                     
-            except:
-                tkMessageBox.showinfo("提示：","请正确输入更新码")
-                
-        b1=Button(self.root,text="参数设置完成再点我",command=click_on,bg="red",width=15,fg="blue").grid(row=1,column=2)
-        b2=Button(self.root,text="查看更新信息",command=select_on).grid(row=11,column=2)
+            except EXCEPTION as e:
+                tkMessageBox.showinfo("提示：",e)
+        #定义打包函数
+        def remote_set():
+            self.col["backdir"]=back_dir_var.get()
+            writcol(self.col)
+            env.host_string=motecom_var.get()
+            env.password=pwd_var.get()
+        def bale():
+            remote_set()
+            upnum_list=update_var.get().split(",")
+            text=""
+            with cd(self.col["backdir"]):
+                for upnum in upnum_list: 
+                    if upnum:
+                        tarname=upnum+".tar.gz"
+                        try:
+                            run("tar -zcvf %s %s" % (tarname,upnum))
+                            newtext="%s打包成功\n" % tarname
+                            text=text+newtext
+                        except:
+                            newtext="%s打包失败（未找到对应文件或目录！）\n" % tarname
+                            
+                            text=text+newtext
+                            continue
+                if text:     
+                    tkMessageBox.showinfo("提示：",text)
+                else:
+                    tkMessageBox.showinfo("提示：","请输入正确的更新码！")
+        def del_tar():
+            remote_set()
+            with cd(self.col["backdir"]):
+                try:
+                    run("rm -rf ./*.gz")
+                    tkMessageBox.showinfo("提示：","删除压缩文件成功！")
+                except:
+                    tkMessageBox.showinfo("提示：","删除压缩文件失败！")
+        def del_all():
+            remote_set()
+            with cd(self.col["backdir"]):
+                try:
+                    run("rm -rf ./*")
+                    tkMessageBox.showinfo("提示：","清空目录成功！")
+                except:
+                    tkMessageBox.showinfo("提示：","清空目录失败！")     
+        b1=Button(self.root,text="参数设置完成再点我",command=click_on,overrelief=FLAT,bg="red",bd=3,width=15,fg="blue").grid(row=1,column=2)
+        b2=Button(self.root,text="查看更新信息",command=select_on,bd=3,overrelief=FLAT).grid(row=11,column=2)
+        b3=Button(self.root,text="更新码代码打包",command=bale,bg="red",bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=18,column=1)
+        b4=Button(self.root,text="清空备份目录压缩文件",command=del_tar,bg="red",bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=19,column=1)
+        b5=Button(self.root,text="清空备份目录",command=del_all,bg="red",bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=20,column=1)
+        b6=Button(self.root,text="退出程序",command=(lambda x=self.root:x.destroy()),bg="red",bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=21,column=1)
+
         self.root.mainloop()
         return self.pack,self.textlist,self.row_list
 if __name__=="__main__":
@@ -191,10 +253,10 @@ if __name__=="__main__":
             col=loadcol()
             #print col
             put=updata_list(col,textlist,row_list)
-            pack=put.update_File()
+            pack=put.updata_File()
             if pack==1:
                 main()
-    try:
-        main()
-    except Exception as e:
-        tkMessageBox.showinfo("错误提示：",e)
+    #try:
+    main()
+    #except Exception as e:
+        #tkMessageBox.showinfo("错误提示：",e)

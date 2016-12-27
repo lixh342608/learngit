@@ -42,7 +42,11 @@ def check_file(localpath,remotepath):
         return 1
     else:
         return 0
-
+def back_file(file,packgename,backdir="/opt/back"):
+    backfile=backdir+"/"+packgename+"/"+file
+    file_backpath=os.path.split(backfile)[0]
+    run("install -d %s" % file_backpath)
+    return backfile
 class updata_list:
     #初始化tkinter
     def __init__(self,col,filelist,row_list):
@@ -69,7 +73,7 @@ class updata_list:
         self.log=Text(self.root,width=50,height=30,font = ("Arial, 10"))
         self.log.pack()
     #上传文件
-    def update_File(self):
+    def updata_File(self):
         #定义标记文件动作
         def saved():
             for row in self.row_list:
@@ -88,6 +92,7 @@ class updata_list:
             
             filename=asksaveasfilename(initialfile=u"更新日志.xls")
             for row in self.row_list:
+               
                 wrcode=xl_write(int(row),int(self.col["cal"]),xlfile=filename)
                 if wrcode:
                     
@@ -102,7 +107,7 @@ class updata_list:
         env.host_string=self.col["motecom"]
         env.password=self.col["pwd"]
         #文件列表
-        #filelist=readf(self.col["update_num"],self.col["cal"])
+        #filelist=readf(self.col["updata_num"],self.col["cal"])
         #更新本地代码库
         local("svn update "+self.col["localpath"])
         #初始化上传正确数和错误数
@@ -134,6 +139,8 @@ class updata_list:
             run("chown -R %s %s" % (self.col["moteuser"],master_dir))
             self.log.insert(INSERT,"正在上传文件%s\n" % localpath)
             putfile(localpath,remotepath)
+            remote_backpath=back_file(file, self.col["update_num"],self.col["backdir"])
+            putfile(localpath,remote_backpath)
             t=check_file(localpath,remotepath)
             if t==1:
                 self.log.insert(INSERT,"%s上传成功！\n" % file)
@@ -183,7 +190,7 @@ if __name__=="__main__":
             col=loadcol()
             #print col
             c1=updata_list(col)
-            pack=c1.update_File()
+            pack=c1.updata_File()
             if pack==1:
                 main()
     main()

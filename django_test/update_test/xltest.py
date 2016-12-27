@@ -4,7 +4,7 @@ Created on 2016年10月14日
 
 @author: pc
 '''
-import xlrd,xlwt
+import xlrd,xlwt,time
 from xlutils.copy import copy
 
 import sys
@@ -19,7 +19,10 @@ def xl_red(row_num,cal,xlfile=u"Y:/研发部/更新日志.xls",ind=0):
     
     return cell 
 #写入excel第一个工作表某行第五列值为changed，行数（row=int(row)+int(cal)）,保存OK返回1，无法保存返回0
-def xl_write(row,cal,col=5,changed=u"已更新",xlfile=u"Y:/研发部/更新日志.xls",ind=0):
+def xl_write(row,cal,col=5,xlfile=u"Y:/研发部/更新日志.xls",ind=0):
+    localtime=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    changed=u"更新时间：\r\n%s" % localtime
+    print changed
     #返回一个单元格对像（row=rowIndex,col=colIndex）
     def _getOutCell(outSheet, colIndex=5, rowIndex=2):
         """ HACK: Extract the internal xlwt cell representation. """
@@ -28,7 +31,7 @@ def xl_write(row,cal,col=5,changed=u"已更新",xlfile=u"Y:/研发部/更新日�
         cell = row._Row__cells.get(colIndex)
         return cell
     row=int(row)+int(cal)
-    
+    #exl=xlrd.open_workbook(u"C:/test/更新日志.xls",formatting_info=True)
     exl=xlrd.open_workbook(u"Y:/研发部/更新日志.xls",formatting_info=True)
     r_sheet=exl.sheet_by_index(ind)
     w_exl=copy(exl)
@@ -45,6 +48,8 @@ def xl_write(row,cal,col=5,changed=u"已更新",xlfile=u"Y:/研发部/更新日�
 
     
 if __name__=="__main__":
-    textlist=xl_red(2)
-    print textlist
-    xl_write(5,5)
+    #xlfile=u"C:/test/更新日志.xls"
+    #textlist=xl_red(2,18,xlfile)
+    #print textlist
+    wrcode=xl_write(5,1,5)
+    print wrcode

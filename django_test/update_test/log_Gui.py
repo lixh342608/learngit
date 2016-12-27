@@ -5,6 +5,7 @@ Created on 2016年11月12日
 @author: pc
 '''
 from Tkinter import *
+import ttk
 import tkMessageBox,os
 from updateLog import *
 from tkFileDialog import askopenfilename
@@ -18,20 +19,26 @@ class log_gui:
         width_n=self.root.winfo_screenwidth()/2-180
         height_n=self.root.winfo_screenheight()/2-250
         
-        self.root.geometry('330x430+%s+%s' % (width_n,height_n))
-        self.exl_path=loadcol("excel_path.pic")
+        self.root.geometry('318x450+%s+%s' % (width_n,height_n))
+        #self.exl_path=loadcol("excel_path.pic")
+        
+        self.col=loadcol("excel_path.pic")
+        if self.col=="":
+            tkMessageBox.showerror("提示：","找不到配置文件，请先选择需要操作的excel文件。")
+            self.col=dict.fromkeys(("file_path","devner","cal"),"")
+            #print self.col
         #print self.exl_path      
     #初始化控件
     def add_info(self):
         def back_value(up_var):
-            if self.exl_path != "":
+            if self.col["file_path"] != "":
                 try:
-                    cellvalue,rb=read_cell(self.exl_path)
+                    cellvalue,rb=read_cell(self.col["file_path"])
                     up_ver_var.set(int(cellvalue)+1)
                     head_var.set("")
                     self.e2.delete(1.0,END)
                     SVN_V_var.set("")
-                    emp_name_var.set("")
+                    emp_name_var.set(self.col["devner"])
                 except ValueError:
                     tkMessageBox.showinfo("提示：","文件最后一条数据更新码不是有效数据，请检查目标文件。")
                     up_var.set("")
@@ -46,7 +53,7 @@ class log_gui:
                 e5["state"]=NORMAL
                 b3["state"]=NORMAL
                 b3["bg"]="blue"
-                cellvalue,rb=read_cell(self.exl_path)
+                cellvalue,rb=read_cell(self.col["file_path"])
                 set_value(cellvalue)
             else:
                 b2_text_var.set("去修改（当前为新增模式）")
@@ -59,7 +66,7 @@ class log_gui:
                 back_value(up_ver_var)
         def click_on():
             if b1_text_var.get()==u"写      入":
-                cellvalue,rb=read_cell(self.exl_path)
+                cellvalue,rb=read_cell(self.col["file_path"])
                 if int(cellvalue)==(int(up_ver_var.get())-1):
                     pass
                 else:
@@ -79,7 +86,7 @@ class log_gui:
             else:
                 try:
                 #print "开始写入"
-                    write_log(filelist)
+                    write_log(filelist,self.col["cal"],self.col["file_path"])
                     if b1_text_var.get()==u"写      入":
                         tkMessageBox.showinfo("提示：","写入成功！")
                         back_value(up_ver_var)
@@ -90,7 +97,7 @@ class log_gui:
                 
         def set_value(cellvalue):
             try:
-                row_cell=read_row(cellvalue,xlfile=self.exl_path)
+                row_cell=read_row(cellvalue,xlfile=self.col["file_path"])
                 up_ver_var.set(int(row_cell[0]))
             except:
                 up_ver_var.set("")
@@ -111,12 +118,25 @@ class log_gui:
                 path_dir=os.path.split(self.exl_path)[0]
             except:
                 path_dir="C:\Users\pc\Desktop"
-            self.exl_path =u"%s" % askopenfilename(initialdir = path_dir,filetypes=[("old_excel","*.xls"),("new_excel","*.xlsx")])
-            if self.exl_path:
-                excel_file_var.set(self.exl_path)
+            exl_path =u"%s" % askopenfilename(initialdir = path_dir,filetypes=[("old_excel","*.xls"),("new_excel","*.xlsx")])
+            if exl_path:
+                excel_file_var.set(exl_path)
+                self.col["file_path"]=exl_path
             back_value(up_ver_var)
-            writcol(self.exl_path,"excel_path.pic")
-            e6["state"]=DISABLED        
+            writcol(self.col,"excel_path.pic")
+            e6["state"]=DISABLED
+        def developer():
+            self.col["devner"]=emp_name_var.get()
+            writcol(self.col,"excel_path.pic")
+        def set_cal():
+            if b6_text_var.get()==u"设置":
+                e7["state"]=NORMAL
+                b6_text_var.set("确定")
+            else:
+                self.col["cal"]=excel_cal_var.get()
+                writcol(self.col,"excel_path.pic")
+                e7["state"]=DISABLED
+                b6_text_var.set("设置")
         #功能描述
         lab1=Label(self.root,text="请在下方输入功能或BUG描述").grid(row=2,column=0,columnspan=3)
     
@@ -150,9 +170,9 @@ class log_gui:
     
         emp_name_var=StringVar()
     
-        e4=Entry(self.root,textvariable=emp_name_var,width=35).grid(row=9,column=1,columnspan=2)
-    
-        emp_name_var.set("")
+        #e4=Entry(self.root,textvariable=emp_name_var,width=35).grid(row=9,column=1,columnspan=2)
+        e4 = ttk.Combobox(self.root, textvariable=emp_name_var, values=["魏茂浩","张健","姚子丹","麦博浪","叶国正"]).grid(row=9,column=1)
+        emp_name_var.set(self.col["devner"])
         
         up_ver_var=StringVar()
         e5=Entry(self.root,textvariable=up_ver_var,state=DISABLED)
@@ -161,19 +181,21 @@ class log_gui:
         excel_file_var=StringVar()
         e6=Entry(self.root,textvariable=excel_file_var,state=DISABLED)
         e6.grid(row=11,column=1)
+        excel_file_var.set(self.col["file_path"])
+        
+        excel_cal_var=StringVar()
+        e7=Entry(self.root,textvariable=excel_cal_var,state=DISABLED)
+        e7.grid(row=13,column=1)
         
         
-        if self.exl_path:
-            excel_file_var.set(self.exl_path)
-        else:
-            tkMessageBox.showerror("提示：","找不到配置文件，请先选择需要操作的excel文件。")
-            excel_file_var.set("")
+        excel_cal_var.set(self.col["cal"])
         
         Label(self.root,text="更新码").grid(row=1,column=0)
         Label(self.root,text="功能描述").grid(row=3,column=0)
         Label(self.root,text="文件列表").grid(row=5,column=0)
         Label(self.root,text="SVN版本号").grid(row=7,column=0)
         remote=Label(self.root,text="开发者").grid(row=9,column=0)
+        Label(self.root,text="校准值").grid(row=13,column=0)
         b1_text_var=StringVar()
         b1=Button(self.root,textvariable=b1_text_var,command=click_on,bg="red",width=10,fg="white")
         b1_text_var.set("写      入")
@@ -185,6 +207,11 @@ class log_gui:
         b3=Button(self.root,text="GO=>>",command=select_value,bg="white",fg="white",state=DISABLED)
         b3.grid(row=1,column=2)
         b4=Button(self.root,text="目标文件",command=select_file,bg="yellow",fg="blue").grid(row=11,column=2)
+        b5=Button(self.root,text="设为默认开发",command=developer,bg="yellow",fg="blue").grid(row=9,column=2)
+        b6_text_var=StringVar()
+        b6=Button(self.root,textvariable=b6_text_var,command=set_cal,bg="yellow",fg="blue")
+        b6_text_var.set("设置")
+        b6.grid(row=13,column=2)
         self.root.mainloop()
         
         
