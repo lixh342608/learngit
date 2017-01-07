@@ -7,9 +7,7 @@ Created on 2016年10月14日
 import xlrd,xlwt,time
 from xlutils.copy import copy
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+
 #读取excel第一个工作表一行数值（row_num)+int(cal)）
 def xl_red(row_num,cal,xlfile=u"Y:/研发部/更新日志.xls",ind=0):
     exl=xlrd.open_workbook(xlfile)

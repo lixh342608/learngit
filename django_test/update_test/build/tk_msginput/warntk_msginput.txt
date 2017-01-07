@@ -60,14 +60,10 @@ missing module named time.strptime - imported by time, ssl
 missing module named thread.allocate_lock - imported by thread, _strptime
 missing module named datetime.date - imported by datetime, _strptime
 missing module named datetime.datetime - imported by datetime, paramiko.proxy
-missing module named _sre.MAXREPEAT - imported by _sre, sre_constants
 missing module named strop.whitespace - imported by strop, string
 missing module named strop.maketrans - imported by strop, string
 missing module named strop.lowercase - imported by strop, string
 missing module named strop.uppercase - imported by strop, string
-missing module named array.array - imported by array, xlrd.sheet, httplib, future.backports.http.client
-missing module named re._compile - imported by re, sre
-missing module named re.__all__ - imported by re, sre
 missing module named itertools.chain - imported by itertools, tokenize, heapq, collections, decimal, future.backports.misc
 missing module named errno.EINVAL - imported by errno, StringIO
 missing module named errno.ENOENT - imported by errno, gettext
@@ -159,20 +155,16 @@ missing module named pythoncom.DISPATCH_METHOD - imported by pythoncom, win32com
 missing module named pythoncom.DISPID_CONSTRUCTOR - imported by pythoncom, win32com.server.policy
 missing module named pythoncom.DISPATCH_PROPERTYPUTREF - imported by pythoncom, win32com.server.policy
 missing module named pythoncom.DISPID_NEWENUM - imported by pythoncom, win32com.server.policy
-missing module named _sysconfigdata.build_time_vars - imported by _sysconfigdata, distutils.sysconfig, sysconfig
-missing module named _sysconfigdata - imported by distutils.sysconfig, sysconfig
-missing module named __builtin__.open - imported by __builtin__, tarfile
-missing module named grp.getgrnam - imported by grp, shutil
-missing module named grp - imported by shutil, tarfile
 missing module named __builtin__.pow - imported by __builtin__, future.builtins.misc
 missing module named __builtin__.unichr - imported by __builtin__, future.builtins.misc
-missing module named sys.getwindowsversion - imported by sys, platform
-missing module named sys.modules - imported by sys, dummy_threading, xmlrpclib
-missing module named sys.py3kwarning - imported by sys, httplib
+missing module named __builtin__.open - imported by __builtin__, tarfile
 missing module named unicodedata.ucd_3_2_0 - imported by unicodedata, stringprep, encodings.idna
 missing module named codecs.mbcs_encode - imported by codecs, encodings.mbcs
 missing module named codecs.mbcs_decode - imported by codecs, encodings.mbcs
 missing module named base64.encodebytes - imported by base64, future.backports.email.encoders
+missing module named sys.getwindowsversion - imported by sys, platform
+missing module named sys.modules - imported by sys, dummy_threading, xmlrpclib
+missing module named sys.py3kwarning - imported by sys, httplib
 missing module named SOCKS - imported by ftplib
 missing module named _winreg.OpenKeyEx - imported by _winreg, platform
 missing module named _winreg.HKEY_LOCAL_MACHINE - imported by _winreg, platform
@@ -241,6 +233,7 @@ missing module named _ssl.SSL_ERROR_SSL - imported by _ssl, socket
 missing module named _ssl.SSL_ERROR_INVALID_ERROR_CODE - imported by _ssl, socket
 missing module named _ssl.SSL_ERROR_WANT_WRITE - imported by _ssl, socket
 missing module named _ssl.SSL_ERROR_SYSCALL - imported by _ssl, socket
+missing module named array.array - imported by array, xlrd.sheet, httplib, future.backports.http.client
 missing module named _ctypes._wstring_at_addr - imported by _ctypes, ctypes
 missing module named _ctypes._string_at_addr - imported by _ctypes, ctypes
 missing module named _ctypes._cast_addr - imported by _ctypes, ctypes
@@ -277,6 +270,8 @@ missing module named _ctypes._Pointer - imported by _ctypes, ctypes
 missing module named _ctypes.Structure - imported by _ctypes, ctypes
 missing module named _ctypes.Array - imported by _ctypes, ctypes
 missing module named _ctypes.Union - imported by _ctypes, ctypes
+missing module named _sysconfigdata.build_time_vars - imported by _sysconfigdata, distutils.sysconfig, sysconfig
+missing module named _sysconfigdata - imported by distutils.sysconfig, sysconfig
 missing module named vms_lib - imported by platform
 missing module named 'java.lang' - imported by platform, xml.sax._exceptions
 missing module named 'java.lang'.Exception - imported by 'java.lang', xml.sax._exceptions
@@ -306,6 +301,8 @@ missing module named winreg.HKEY_LOCAL_MACHINE - imported by winreg, platform
 missing module named winreg.QueryValueEx - imported by winreg, platform
 missing module named winreg.CloseKey - imported by winreg, platform
 missing module named socket.getaddrinfo - imported by socket, future.backports.misc
+missing module named grp - imported by shutil, tarfile
+missing module named grp.getgrnam - imported by grp, shutil
 missing module named _multiprocessing.win32 - imported by _multiprocessing, multiprocessing.forking, multiprocessing.connection, multiprocessing.reduction, multiprocessing.heap
 missing module named multiprocessing.RLock - imported by multiprocessing, multiprocessing.sharedctypes
 missing module named multiprocessing.pool.ThreadPool - imported by multiprocessing.pool, multiprocessing.dummy
@@ -411,6 +408,9 @@ missing module named cElementTree - imported by xlrd.xlsx
 missing module named ElementC14N._serialize_c14n - imported by ElementC14N, xml.etree.ElementTree
 missing module named ElementC14N - imported by xml.etree.ElementTree
 missing module named xlrd.biffh.fprintf - imported by xlrd.biffh, xlrd.formatting
+missing module named _sre.MAXREPEAT - imported by _sre, sre_constants
+missing module named re._compile - imported by re, sre
+missing module named re.__all__ - imported by re, sre
 missing module named errorhandler.ErrorHandler - imported by errorhandler, xlutils.filter
 missing module named errorhandler - imported by xlutils.filter
 missing module named guppy.hpy - imported by guppy, xlutils.filter

@@ -67,8 +67,8 @@
   ('win32api',
    'c:\\python27\\lib\\site-packages\\win32\\win32api.pyd',
    'EXTENSION'),
-  ('bz2', 'c:\\python27\\DLLs\\bz2.pyd', 'EXTENSION'),
   ('unicodedata', 'c:\\python27\\DLLs\\unicodedata.pyd', 'EXTENSION'),
+  ('bz2', 'c:\\python27\\DLLs\\bz2.pyd', 'EXTENSION'),
   ('_testcapi', 'c:\\python27\\DLLs\\_testcapi.pyd', 'EXTENSION'),
   ('_ssl', 'c:\\python27\\DLLs\\_ssl.pyd', 'EXTENSION'),
   ('_ctypes', 'c:\\python27\\DLLs\\_ctypes.pyd', 'EXTENSION'),
@@ -2533,7 +2533,7 @@
  [],
  False,
  False,
- 1482549246L,
+ 1483775442L,
  [('run.exe',
    'c:\\python27\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

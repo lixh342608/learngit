@@ -22,35 +22,39 @@ from tkFileDialog  import asksaveasfilename
         if file:
             filelist.append(file)
     return filelist   """
+#下载文件
+def getfile(localpath,remotepath):
+    with settings(warn_only=True):
+        result=get(remotepath,localpath)
+    #if result.failed and not confirm("get file failed,continue[Y/N]"):
+        #abort("Aborting file get task!")
 
 #上传文件
 def putfile(localpath,remotepath):
     with settings(warn_only=True):
         result=put(localpath,remotepath)
-    if result.failed and not confirm("get file failed,continue[Y/N]"):
-        abort("Aborting file get task!")
-    else:
-        print "put file ok!" 
+    #if result.failed: and not confirm("get file failed,continue[Y/N]"):
+        #abort("Aborting file get task!")
+    #else:
+        #print "put file ok!" 
 #根据MD5校验上传文件是否正确   
 def check_file(localpath,remotepath):
     with settings(warn_only=True):
         lmd5=local("certutil -hashfile %s MD5" % localpath,capture=True).split("\r\n")[1].replace(' ','')
         rmd5=run("md5sum %s" % remotepath).split(' ')[0]
-        print "lmd5_value:%s" % lmd5
-        print "Rmd5_value:%s" % rmd5
     if lmd5==rmd5:
         return 1
     else:
         return 0
 def back_file(file,packgename,backdir="/opt/back"):
-    backfile=backdir+"/"+packgename+"/"+file
+    backfile=backdir+"/"+str(packgename)+file
     file_backpath=os.path.split(backfile)[0]
     run("install -d %s" % file_backpath)
     return backfile
 class updata_list:
     #初始化tkinter
-    def __init__(self,col,filelist,row_list):
-        self.filelist=filelist
+    def __init__(self,col,filedict,row_list):
+        self.filedict=filedict
         self.row_list=row_list
         self.pack=0
         self.col=col
@@ -103,59 +107,81 @@ class updata_list:
         def let_go():
             self.pack=1
             self.root.destroy()
-        #远程主机信息
-        env.host_string=self.col["motecom"]
-        env.password=self.col["pwd"]
-        #文件列表
-        #filelist=readf(self.col["updata_num"],self.col["cal"])
+
         #更新本地代码库
         local("svn update "+self.col["localpath"])
         #初始化上传正确数和错误数
         num=0
         bad=0
         #需要上传更新文件总数
-        count=len(self.filelist)
+        count=0
+        for key in self.filedict.keys():
+            count+=len(self.filedict[key])
+        
+        #count=len(self.filelist)
         #遍历更新文件列表
-        for file in self.filelist:
-            file=file.strip()
-            pathlist=file.split("/")
-            master_dir=self.col["motepath"]+"/"+pathlist[1]
-            self.ask.set("正在上传第%d个文件%d/%s" % (num+1,num,count))
-            self.log.insert(INSERT,"开始上传%s\n"% file)
-            localpath=self.col["localpath"]+file
-            #print localpath
-            if os.path.isfile(localpath)==False:
-                self.log.insert(INSERT,"文件%s本地不存在\n" % localpath)
-                bad+=1
-                continue
-            remotepath=self.col["motepath"]+file
-            filepath=os.path.split(remotepath)[0]
-            self.log.insert(INSERT,localpath+"==>>"+remotepath+"\n")
-            self.log.insert(INSERT,"正在创建目录"+filepath+"\n")
-            run("install -d %s" % filepath)
-            #给上传文件授权
-            run("chmod 755 %s" % filepath)
-            #给上传文件重置属主、属组
-            run("chown -R %s %s" % (self.col["moteuser"],master_dir))
-            self.log.insert(INSERT,"正在上传文件%s\n" % localpath)
-            putfile(localpath,remotepath)
-            remote_backpath=back_file(file, self.col["update_num"],self.col["backdir"])
-            putfile(localpath,remote_backpath)
-            t=check_file(localpath,remotepath)
-            if t==1:
-                self.log.insert(INSERT,"%s上传成功！\n" % file)
-                num+=1
-            else:
-                self.log.insert(INSERT,"%s上传失败！\n" % file)
-                bad+=1
-            #给上传文件授权
-            run("chmod 755 %s" % remotepath)
-            #给上传文件重置属主、属组
-            run("chown -R %s %s" % (self.col["moteuser"],remotepath))
+        
+            for file in self.filedict[key]:
+                if file[1:5]=="cake":
+                    self.col["puttype"]=self.col["cake"]
+                else:
+                    self.col["puttype"]=self.col["nocake"]
+                env.host_string=self.col["connext_set"][self.col["puttype"]][0]
+                env.password=self.col["connext_set"][self.col["puttype"]][1]
+                file=file.strip()
+                pathlist=file.split("/")
+                master_dir=self.col["connext_set"][self.col["puttype"]][2]+"/"+pathlist[1]
+                self.ask.set("正在上传第%d个文件%d/%s" % (num+1,num,count))
+                self.log.insert(INSERT,"开始上传%s\n"% file)
+                localpath=self.col["localpath"]+file
+                remotepath=self.col["connext_set"][self.col["puttype"]][2]+file
+                #判断本地文件是否存在
+                if os.path.isfile(localpath)==False:
+                    #判断本地文件是否目录
+                    if os.path.isdir(localpath)==True:
+                        self.log.insert(INSERT,"%s为目录\n" % localpath)
+                        bad+=1
+                        continue
+                    else:
+                        #文件不存在时同步删除服务器对应文件
+                        self.log.insert(INSERT,"文件%s本地不存在\n" % localpath)
+                        com="""if [ -f "%s" ]; then
+                                   rm -f %s
+                               fi""" % (remotepath,remotepath)
+                        run(com)
+                        self.log.insert(INSERT,"同步删除服务器文件%s\n" % localpath)
+                        num+=1
+                        continue
+                filepath=os.path.split(remotepath)[0]
+                self.log.insert(INSERT,localpath+"==>>"+remotepath+"\n")
+                self.log.insert(INSERT,"正在创建目录"+filepath+"\n")
+                run("install -d %s" % filepath)
+                #给上传文件授权
+                run("chmod 755 %s" % filepath)
+                #给上传文件重置属主、属组
+                run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],master_dir))
+                self.log.insert(INSERT,"正在上传文件%s\n" % localpath)
+                putfile(localpath,remotepath)
+                remote_backpath=back_file(file, key,self.col["backdir"])
+                putfile(localpath,remote_backpath)
+                t=check_file(localpath,remotepath)
+                if t==1:
+                    print "文件%s上传成功" % file
+                    self.log.insert(INSERT,"%s上传成功！\n" % file)
+                    num+=1
+                else:
+                    self.log.insert(INSERT,"%s上传失败！\n" % file)
+                    bad+=1
+                #给上传文件授权
+                run("chmod 755 %s" % remotepath)
+                #给上传文件重置属主、属组
+                run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],remotepath))
+                self.log.insert(INSERT,"上传完成，正在删除系统缓存！\n")
+                run("rm -rf %s/public/runtime/*" % master_dir)
         self.ask.set("上传完成%d/%s" % (num,count))
-        self.log.insert(INSERT,"上传完成，正在删除系统缓存！\n")
+        #self.log.insert(INSERT,"上传完成，正在删除系统缓存！\n")
         #删除缓存
-        run("rm -rf %s/public/runtime/*" % master_dir)
+        #run("rm -rf %s/public/runtime/*" % master_dir)
         tkMessageBox.showinfo("提示：","上传完成 错误数：%s" % bad)
         Button(self.root,text="退出程序",command=(lambda x=self.root:x.destroy()),bg="red").pack(padx=10,side=RIGHT)
         Button(self.framl,text="标记日志已更新",command=saved,bg="red").pack(pady=5)
