@@ -10,7 +10,7 @@ def top_quit():
 root = Tk()
 tl = Toplevel(root)
 tl.title("日志详情")
-tl.geometry('850x430')
+tl.geometry('850x550')
 tl.attributes("-topmost", 1)
 sb=Scrollbar(tl)
 sb.pack(side=RIGHT,fill=Y)

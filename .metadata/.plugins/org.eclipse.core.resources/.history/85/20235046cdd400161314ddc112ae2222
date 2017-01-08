@@ -16,8 +16,7 @@ from test.test_tarfile import tarname
 import sys
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
-def top_quit(master):
-    master.destroy()
+
 def topmsge(master,title,logs):
     toproot=Toplevel(master)
     toproot.title(title)
@@ -25,13 +24,16 @@ def topmsge(master,title,logs):
     height_n=toproot.winfo_screenheight()/2-250
     toproot.geometry('850x450+%s+%s' % (width_n,height_n))
     toproot.attributes("-topmost", 1)
-    sbar=Scrollbar(toproot)
-    sbar.pack(side=RIGHT,fill=Y)
-    txt=Text(toproot,width=300,height=30,font = ("Arial, 10"))
-    txt.pack()
-    txt.insert(INSERT,logs)
-    sbar.config(command=txt.yview)
-    Button(toproot,text="确定",command=(lambda x=toproot:x.destroy()),width=15).pack(side=BOTTOM)
+    #sbar=Scrollbar(toproot)
+    #sbar.pack(side=RIGHT,fill=Y)
+    #txt=Text(toproot,width=300,height=30,font = ("Arial, 10"))
+    #txt.pack()
+    #txt.insert(INSERT,text)
+    #sbar.config(command=txt.yview)
+    #Button(toproot,text="确定",command=top_quit,width=20).pack(side=RIGHT)
+    Button(toproot,text="确定",command=top_quit).pack()#,text="确定",command=top_quit).pack(side=RIGHT)
+    def top_quit():
+        toproot.destroy()
 #读取配置文件
 def loadcol():
     try:
@@ -230,27 +232,34 @@ class tk_Msginput:
                         except IndexError:
                             tkMessageBox.showinfo("提示：","更新码%s超出范围，请核对！" % row_num)
                             break
-                        items=[["更新代号:",0],
-                               ["开发人员:",4],
-                               ["SVN版本号:",3],
-                               ["\n更新功能:\n",1],
-                               ["\n文件列表:\n",2]]
-                        text+="\n"
-                        for item in items:
-                            text+=("*"+item[0]+str(cell[item[1]]))
-                            if item[1]==2:
-                                filelist=cell[2].split("\n")
+                        """if self.col["puttype"]==0:
+                            if cell[2][:5]=="/cake":#非分润服务器更新
+                                continue
+                        elif self.col["puttype"]==1:
+                            if cell[2][:5]!="/cake":#分润服务器更新
+                                continue
+                        else:
+                            pass"""
+                        item=["更新代号： ","  更新功能：  ","文件列表：  ","  SVN版本号：  ","  开发人员：  "]
+                        num=0
+                        for stri in item:
+                            text+=(stri+"*"+str(cell[num])+"*")
+                            num+=1
+                            if num==2:
+                                filelist=cell[num].split("\n")
                                 
                                 for file in filelist:
                                     if file:
                                         textlist.append(file)
                                 
-                                self.textdict[row_num]=textlist                  
+                                self.textdict[row_num]=textlist                    
+                                           
+        
                         if int(row_num)==cell[0]:
-                            text+=("\n更新码核对正确，请点击右上角按钮进行更新!\n"+"*"*30+"我是分割线"+"*"*30+"\n")
+                            text+=("更新码核对正确，请点击右上角按钮进行更新!\n"+"*"*30+"我是分割线"+"*"*30+"\n")
                             
                         else:
-                            text+=("\n更新码核对不正确，请重新调整更新码校准值！\n")
+                            text+=("更新码核对不正确，请重新调整更新码校准值！\n")
                 else:
                     if text:
                         #tkMessageBox.showinfo("请核对以下信息：",text)

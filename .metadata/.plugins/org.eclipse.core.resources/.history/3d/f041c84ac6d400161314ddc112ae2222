@@ -5,20 +5,14 @@ Created on 2015年12月25日
 @author: admin
 '''
 from Tkinter import *
-def top_quit():
-    tl.destroy()
 root = Tk()
-tl = Toplevel(root)
+tl = Toplevel()
 tl.title("日志详情")
-tl.geometry('850x430')
+tl.geometry('650x350')
 tl.attributes("-topmost", 1)
-sb=Scrollbar(tl)
-sb.pack(side=RIGHT,fill=Y)
 #为了区别root和tl，我们向tl中添加了一个Label
-txt=Text(tl,width=300,height=30)
-txt.pack()
-sb.config(command=txt.yview)
-Button(tl,text="确定",command=top_quit).pack(side=RIGHT)
+Text(tl).pack()
+Button(tl,text="exit").pack(side=RIGHT)
 root.mainloop()
 
 

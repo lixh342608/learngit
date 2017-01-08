@@ -231,10 +231,10 @@ class tk_Msginput:
                             tkMessageBox.showinfo("提示：","更新码%s超出范围，请核对！" % row_num)
                             break
                         items=[["更新代号:",0],
+                               ["更新功能:",1],
                                ["开发人员:",4],
                                ["SVN版本号:",3],
-                               ["\n更新功能:\n",1],
-                               ["\n文件列表:\n",2]]
+                               ["文件列表:\n",2]]
                         text+="\n"
                         for item in items:
                             text+=("*"+item[0]+str(cell[item[1]]))

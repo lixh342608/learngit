@@ -233,7 +233,7 @@ class tk_Msginput:
                         items=[["更新代号:",0],
                                ["开发人员:",4],
                                ["SVN版本号:",3],
-                               ["\n更新功能:\n",1],
+                               ["\n更新功能:",1],
                                ["\n文件列表:\n",2]]
                         text+="\n"
                         for item in items:

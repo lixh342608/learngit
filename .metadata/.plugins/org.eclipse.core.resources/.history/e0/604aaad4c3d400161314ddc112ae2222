@@ -5,24 +5,7 @@ Created on 2015年12月25日
 @author: admin
 '''
 from Tkinter import *
-def top_quit():
-    tl.destroy()
-root = Tk()
-tl = Toplevel(root)
-tl.title("日志详情")
-tl.geometry('850x430')
-tl.attributes("-topmost", 1)
-sb=Scrollbar(tl)
-sb.pack(side=RIGHT,fill=Y)
-#为了区别root和tl，我们向tl中添加了一个Label
-txt=Text(tl,width=300,height=30)
-txt.pack()
-sb.config(command=txt.yview)
-Button(tl,text="确定",command=top_quit).pack(side=RIGHT)
-root.mainloop()
-
-
-"""root = Tk()                                                     # explicit root
+root = Tk()                                                     # explicit root
     
 trees = [('The Larch!',          'light blue'),
          ('The Pine!',           'light green'),
@@ -42,7 +25,7 @@ for (tree, color) in trees:
 root.title('Lumberjack demo')
 Label(root, text='Main window', width=30).pack()
 Button(root, text='Quit All', command=root.quit).pack()         # kills all app
-root.mainloop()"""
+root.mainloop()
 
 """from Tkinter import *
  
