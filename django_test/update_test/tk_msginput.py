@@ -16,9 +16,8 @@ from test.test_tarfile import tarname
 import sys
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
-def top_quit(master):
-    master.destroy()
-def topmsge(master,title,logs):
+
+"""def topmsge(master,title,logs):
     toproot=Toplevel(master)
     toproot.title(title)
     width_n=toproot.winfo_screenwidth()/2-350
@@ -32,6 +31,7 @@ def topmsge(master,title,logs):
     txt.insert(INSERT,logs)
     sbar.config(command=txt.yview)
     Button(toproot,text="确定",command=(lambda x=toproot:x.destroy()),width=15).pack(side=BOTTOM)
+"""
 #读取配置文件
 def loadcol():
     try:
@@ -181,6 +181,25 @@ class tk_Msginput:
             canv=Canvas(self.root,width=100,height=10)
             canv.grid(row=5,column=i)
             canv.create_rectangle(1,10,100,1,fill="blue")
+        def topmsge(master,title,logs):
+            
+            toproot=Toplevel(master)
+            toproot.title(title)
+            width_n=toproot.winfo_screenwidth()/2-350
+            height_n=toproot.winfo_screenheight()/2-300
+            toproot.geometry('750x450+%s+%s' % (width_n,height_n))
+            toproot.attributes("-topmost", 1)
+            sbar=Scrollbar(toproot)
+            sbar.pack(side=RIGHT,fill=Y)
+            txt=Text(toproot,width=300,height=30,font = ("Arial, 10"),yscrollcommand=sbar.set)
+            txt.pack()
+            txt.insert(INSERT,logs)
+            sbar.config(command=txt.yview)
+            Button(toproot,text="确定",command=(lambda:top_quit()),width=15).pack(side=BOTTOM)
+            def top_quit():
+                b1["state"]=NORMAL
+                toproot.destroy()
+                
         #定义按钮动作（继续动作）
         def click_on():
             if self.textdict == {} or self.row_list == []:
@@ -253,7 +272,6 @@ class tk_Msginput:
                             text+=("\n更新码核对不正确，请重新调整更新码校准值！\n")
                 else:
                     if text:
-                        #tkMessageBox.showinfo("请核对以下信息：",text)
                         topmsge(self.root,"日志详情",text)
                     else:
                         tkMessageBox.showinfo("提示：","请正确输入更新码")        
@@ -393,8 +411,12 @@ class tk_Msginput:
                 b7["state"]=DISABLED
             else:
                 b7["state"]=NORMAL
-        b1=Button(self.root,text="点我更新",command=click_on,overrelief=FLAT,bg="green",bd=3,width=15,height=2,fg="blue").grid(row=10,column=4)
-        b2=Button(self.root,text="查看更新信息",command=select_on,bd=3,overrelief=FLAT).grid(row=7,column=5)
+        #b1_image = Image.open("./image/open.jpg")
+        b2_photo=PhotoImage(file="./image/open.gif")
+        b1_photo=PhotoImage(file="./image/updata.gif")
+        b1=Button(self.root,image=b1_photo,command=click_on,overrelief=FLAT,state=DISABLED)
+        b1.grid(row=10,column=4)
+        b2=Button(self.root,image=b2_photo,command=select_on,overrelief=FLAT).grid(row=7,column=5)
         b3=Button(self.root,text="更新码代码打包",command=bale,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=10,column=1)
         b4=Button(self.root,text="清空备份目录压缩文件",command=del_tar,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=11,column=1)
         b5=Button(self.root,text="清空备份目录",command=del_all,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=12,column=1)
