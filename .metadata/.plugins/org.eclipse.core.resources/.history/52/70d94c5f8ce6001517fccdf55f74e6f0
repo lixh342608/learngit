@@ -1,6 +1,0 @@
-#!/usr/bin/python
-#encoding:utf-8
-for i in range(10000):
-    l=str(i)
-    print l
-    break

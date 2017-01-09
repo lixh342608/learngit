@@ -21,13 +21,13 @@ def top_quit(master):
 def topmsge(master,title,logs):
     toproot=Toplevel(master)
     toproot.title(title)
-    width_n=toproot.winfo_screenwidth()/2-450
-    height_n=toproot.winfo_screenheight()/2-250
-    toproot.geometry('850x450+%s+%s' % (width_n,height_n))
+    width_n=toproot.winfo_screenwidth()/2-350
+    height_n=toproot.winfo_screenheight()/2-300
+    toproot.geometry('750x450+%s+%s' % (width_n,height_n))
     toproot.attributes("-topmost", 1)
     sbar=Scrollbar(toproot)
     sbar.pack(side=RIGHT,fill=Y)
-    txt=Text(toproot,width=300,height=30,font = ("Arial, 10"))
+    txt=Text(toproot,width=300,height=30,font = ("Arial, 10"),yscrollcommand=sbar.set)
     txt.pack()
     txt.insert(INSERT,logs)
     sbar.config(command=txt.yview)

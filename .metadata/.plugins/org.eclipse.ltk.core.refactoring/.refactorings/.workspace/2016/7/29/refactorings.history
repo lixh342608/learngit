@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;py34&apos;" deleteContents="true" description="Delete resource &apos;py34&apos;" element1="/py34" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1468197824765"/>
-</session>
